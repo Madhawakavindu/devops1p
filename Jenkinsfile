@@ -18,8 +18,7 @@ pipeline {
         
         stage('Login to Docker Hub') {
             steps {
-                withCredentials([string(credentialsId: 'test-hubcreden', variable: 'DOCKER_PASS')]) {
-                    // Windows සඳහා වඩා හොඳ ක්‍රමය
+                withCredentials([string(credentialsId: 'dockerhub-pat', variable: 'DOCKER_PASS')]) {
                     powershell '''
                         echo $env:DOCKER_PASS | docker login -u madhawa123 --password-stdin
                     '''
