@@ -13,28 +13,30 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                bat "docker build -t madhawa123/nodeapp_cuban:%BUILD_NUMBER% ."
+                bat 'docker build -t madhawa123/nodeapp_cuban:%BUILD_NUMBER% .'
             }
         }
 
-        stage('Login to Docker Hub') {
+        stage('Login DockerHub') {
             steps {
                 withCredentials([string(credentialsId: 'dockerhub-pat', variable: 'DOCKER_PASS')]) {
-                    bat "echo %DOCKER_PASS% | docker login -u madhawa123 --password-stdin"
+                    bat '''
+                    docker login -u madhawa123 -p %DOCKER_PASS%
+                    '''
                 }
             }
         }
 
-        stage('Push Image') {
+        stage('Push Docker Image') {
             steps {
-                bat "docker push madhawa123/nodeapp_cuban:%BUILD_NUMBER%"
+                bat 'docker push madhawa123/nodeapp_cuban:%BUILD_NUMBER%'
             }
         }
     }
 
     post {
         always {
-            bat "docker logout"
+            bat 'docker logout'
         }
     }
 }
