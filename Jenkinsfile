@@ -13,7 +13,7 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                bat 'docker build -t madhawa123/nodeapp_cuban:%BUILD_NUMBER% .'
+                bat 'docker build -t madhawa123/nodeapp_test:%BUILD_NUMBER% .'
             }
         }
 
@@ -29,7 +29,7 @@ pipeline {
 
         stage('Push Docker Image') {
             steps {
-                bat 'docker push madhawa123/nodeapp_cuban:%BUILD_NUMBER%'
+                bat 'docker push madhawa123/nodeapp_test:%BUILD_NUMBER%'
             }
         }
     }
